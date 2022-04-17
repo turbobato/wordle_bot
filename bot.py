@@ -2,25 +2,35 @@
 # Import the os module.
 import asyncio
 import os
+
 # Import load_dotenv function from dotenv module.
 from dotenv import load_dotenv
+
 # Loads the .env file that resides on the same level as the script.
 load_dotenv()
 # Grab the API token from the .env file.
 import discord
 from discord.ext import tasks, commands
+
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
 client = discord.Client()
 
+f = open("cascada.txt", "r")
+
 phrase_list = ["Points", "Samuel <3", "h. <3<3", "road to top1", "#PandouEnSueur"]
+
+def file_to_list(file) :
+    return [x for x in file]
+
+#phrase_list = file_to_list(f)
 
 async def my_background_task():
     await client.wait_until_ready()
-    counter = 0
-    channel = client.get_channel(id=835769646597668874) # replace with channel_id
+    counter = -1
+    channel = client.get_channel(id=964290356462100481) # replace with channel_id
     while not client.is_closed():
-        counter = (counter + 1) % 5
+        counter = (counter + 1) % len(phrase_list)
         await channel.send(phrase_list[counter])
         await asyncio.sleep(60) # task runs every 60 seconds
 
