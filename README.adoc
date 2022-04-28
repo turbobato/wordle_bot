@@ -27,10 +27,10 @@ Then, you execute the following lines of code
 [source, bash]
 ----
 #in the root of this project
+#I choose to tag the image as wordle bot but the name is up to you
 docker build -t wordle_bot . 
-#I choose to tag the image as wordle_bot but the name is up to you
-docker run -it wordle_bot 
 #replace wordle_bot by the tag you chose
+docker run -it wordle_bot 
 ----
 
 And you're up and running !
