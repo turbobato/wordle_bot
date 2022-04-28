@@ -25,13 +25,19 @@ client = commands.Bot(command_prefix='!')
 
 # Create the wordlist
 
-with open("wordlist.csv", "r") as csvlist :
-    wordlist=[]
+with open("wordlist_accepted.csv", "r") as csvlist :
+    wordlist_accepted=[]
     csvreader=csv.reader(csvlist)
     for word in csvreader :
-        wordlist+= word
+        wordlist_accepted+= word
 
-nb_words=len(wordlist)
+with open("wordlist_guess.csv", "r") as csvlist :
+    wordlist_guess=[]
+    csvreader=csv.reader(csvlist)
+    for word in csvreader :
+        wordlist_guess+= word
+
+nb_words=len(wordlist_guess)
 
 letters = string.ascii_uppercase
 letters
@@ -83,12 +89,12 @@ async def stop(ctx):
 async def start(ctx):
     user = ctx.author
     if not user in games_ongoing :
-        games_ongoing[user]=[0, wordlist[random.randrange(0,nb_words)], set(letters),""]
+        games_ongoing[user]=[0, wordlist_guess[random.randrange(0,nb_words)], set(letters),""]
     elif games_ongoing[user][0] in range(0,6) :
         await ctx.send(f'{user}, you\'re already playing a game !')
         return
     else :
-        games_ongoing[user]=[0, wordlist[random.randrange(0,nb_words)], set(letters),""]
+        games_ongoing[user]=[0, wordlist_guess[random.randrange(0,nb_words)], set(letters),""]
     await ctx.send("You can now play a game by inputing five letter words preceded by !guess")
 
 @client.command()
@@ -100,10 +106,10 @@ async def guess(ctx, word_guess):
         return
     if not len(word_guess)==5:
         await ctx.send(f'{user}, the word must be of length 5')
-    elif word_guess not in wordlist :
+    elif word_guess not in wordlist_accepted :
         await ctx.send(f'{user}, this word doesn\'t exist')
     else :
-        pattern=f"Guess number {games_ongoing[user][0]}\n"
+        pattern=f"Guess number {games_ongoing[user][0]+1}\n"
         occurences={letter : count_letter(letter,games_ongoing[user][1]) for letter in word_guess}
         for i in range(5):
             letter=word_guess[i]
