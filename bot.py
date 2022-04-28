@@ -28,7 +28,7 @@ def file_to_list(file) :
 async def my_background_task():
     await client.wait_until_ready()
     counter = -1
-    channel = client.get_channel(id=964290356462100481) # replace with channel_id
+    channel = client.get_channel(id=897981369882398774) # replace with channel_id
     while not client.is_closed():
         counter = (counter + 1) % len(phrase_list)
         await channel.send(phrase_list[counter])
