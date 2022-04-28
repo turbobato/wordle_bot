@@ -1,12 +1,16 @@
 = How to use
 
-This is just a stupid discord bot only two commands are supported for now :
+This is just a stupid discord bot only three commands are supported for now :
 
 == Commands
 
 ``!start``, this command starts a new game
 
-``!guess five_letters_word`` returns the result with this guess
+``!guess five_letters_word``, returns the result with this guess
+
+``!stop``, stops the current game and tells you the answer
+
+You can also get this help by typing ``!help_wordle``
 
 == How to setup
 
