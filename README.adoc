@@ -1,0 +1,36 @@
+= How to use
+
+This is just a stupid discord bot only two commands are supported for now :
+
+== Commands
+
+``!start``, this command starts a new game
+
+``!guess five_letters_word`` returns the result with this guess
+
+== How to setup
+
+First of all, you must create a .env file containing the token of your bot. This file must follow the following syntax :
+
+[source]
+----
+#./.env
+DISCORD_TOKEN="your_token"
+----
+
+Then you have two choices : either you just install the required packages and launch the python script, either you use the dockerfile I provide; which just runs the bot in a container. 
+
+For this, you need docker installed (https://docs.docker.com/get-docker/[here are the docks])
+
+Then, you execute the following lines of code
+
+[source, bash]
+----
+#in the root of this project
+docker build -t wordle_bot . 
+#I choose to tag the image as wordle_bot but the name is up to you
+docker run -it wordle_bot 
+#replace wordle_bot by the tag you chose
+----
+
+And you're up and running !

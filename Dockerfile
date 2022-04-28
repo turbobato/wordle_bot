@@ -7,5 +7,5 @@ RUN apt-get update
 RUN apt-get install -y python3 python3-pip 
 RUN pip install python-dotenv discord.py
 WORKDIR /bot
-COPY bot.py .env cascada.txt paroles.txt /bot/
+COPY bot.py .env wordlist.csv /bot/
 ENTRYPOINT ["python3", "bot.py"]
