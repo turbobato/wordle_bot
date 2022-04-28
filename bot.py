@@ -113,8 +113,16 @@ async def guess(ctx, word_guess):
                 pattern+=green_square
                 occurences[letter]-=1
             elif letter in games_ongoing[user][1] and occurences[letter]!=0:
-                pattern+=yellow_square
-                occurences[letter]-=1
+                changed = False
+                for j in range(i,5):
+                    if letter==word_guess[j]:
+                        if word_guess[j]==games_ongoing[user][1][j]:
+                            pattern+=black_square
+                            changed= True
+                            break
+                if not changed:
+                    pattern+=yellow_square
+                    occurences[letter]-=1
             else:
                 pattern+=black_square
         games_ongoing[user][0]+=1
@@ -125,9 +133,13 @@ async def guess(ctx, word_guess):
                 await ctx.send(games_ongoing[user][3]+f"Congrats {user}, you win !")
             else : 
                 await ctx.send(games_ongoing[user][3]+f"{user}, you lost...{skull}\nThe word was {games_ongoing[user][1]}")
-        else :        
-            await ctx.send(str(user)+":\n"+games_ongoing[user][3] \
-                    +"Here are the letters you haven't used yet : "+' ,'.join(sorted(list(games_ongoing[user][2]))))
+        else : 
+            if word_guess==games_ongoing[user][1]:
+                await ctx.send(games_ongoing[user][3]+f"Congrats {user}, you win !")
+                games_ongoing[user][0]=6     
+            else :
+                await ctx.send(str(user)+":\n"+games_ongoing[user][3] \
+                        +"Here are the letters you haven't used yet : "+' ,'.join(sorted(list(games_ongoing[user][2]))))
 
             
 client.run(os.getenv("DISCORD_TOKEN"))
